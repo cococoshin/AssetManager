@@ -1,0 +1,35 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	
+}
+.leftSidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0em !important;
+  border-radius: 0em !important;
+  transition: none;
+  will-change: transform;
+  visibility: visible;
+  height: 100% !important;
+  max-height: 100%;
+  overflow-y: auto !important;
+  z-index: 102;
+  width: 150px;
+  background-color: gray;  
+}
+.topSidebar{
+  margin-left : 150px;
+  width: 100% !important;
+  height: 100px !important;
+  background-color: navy;  
+}
+.contents{
+	margin-left: 150px; /* leftsidebar의 너비만큼 */
+	text-align: center;
+	/* 
+	02/09 배경색 칠하는 방법 찾아야함 !!! 
+	 */
+}

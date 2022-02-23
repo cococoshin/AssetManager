@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BankMapper">
+
+	<select id="bankList" parameterType="string"
+		resultType="BankDTO">
+		select * from bank
+		where userid = #{userid}
+	</select>
+
+		<insert id="bankAdd" parameterType="list">
+		insert into bank (
+		no, type, bankname, contents, userid, deposit 
+		)
+		select seq_no.nextval, A.* from(
+		<foreach item="item" collection="list" separator=" UNION ALL ">
+			select			
+			#{item.type} as type, #{item.bankname} as bankname, #{item.contents} as contents, #{item.userid} as userid, #{item.deposit} as deposit
+			from dual
+		</foreach>)A
+	</insert>
+	
+	<delete id="bankDel" parameterType="int">
+		delete from bank
+		where no = #{no}
+	</delete>
+
+	<update id="bankUpd" parameterType="BankDTO">
+		update bank set 
+		type = #{type}, 
+		bankname = #{bankname}, 
+		contents = #{contents}, 
+		deposit = #{deposit} 
+		where no = #{no}
+	</update>
+</mapper>

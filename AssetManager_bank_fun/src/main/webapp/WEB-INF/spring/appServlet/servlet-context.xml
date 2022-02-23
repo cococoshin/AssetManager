@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	<mvc:annotation-driven></mvc:annotation-driven><!-- mvc기본태그 -->
+	<mvc:default-servlet-handler/><!-- mvc기본태그 -->
+	
+	<!-- 단순 이동할때는 이거 사용 -->
+	<mvc:view-controller path="/" view-name="first"/>
+	<mvc:view-controller path="/loginForm" view-name="loginForm"/>
+	<mvc:view-controller path="/loginCheck/memberAdd" view-name="memberForm"/>
+	<mvc:view-controller path="/loginCheck/income" view-name="income"/>
+	<mvc:view-controller path="/loginCheck/expend" view-name="expend"/>
+	<mvc:view-controller path="/loginCheck/saving" view-name="saving"/>
+	<mvc:view-controller path="/loginCheck/invest" view-name="invest"/>
+	<mvc:view-controller path="/loginCheck/asset" view-name="asset"/>
+	
+	<!-- loginCheck제거 -->
+	<mvc:view-controller path="/main" view-name="main"/>
+
+	<!-- css적용 -->
+	<mvc:resources location="/WEB-INF/views/css/" mapping="/css/**"/>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/loginCheck/**" />
+			<ref bean="loginCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<bean id="loginCheckInterceptor" class="com.interceptor.LoginCheckInterceptor"></bean>
+	
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<context:component-scan base-package="com.*" />
+	
+</beans>
